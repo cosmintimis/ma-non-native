@@ -4,6 +4,7 @@ export type MediaItem = {
     description: string;
     location: string;
     type: MEDIA_TYPE;
+    mimeType: string;
     size: number;
     tags: string[];
     mediaData: Uint8Array;
