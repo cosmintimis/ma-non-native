@@ -1,5 +1,6 @@
 import { MediaItemsProvider } from "@/repository/repository";
 import { Stack } from "expo-router";
+import "../global.css";
 
 export default function RootLayout() {
   return (
