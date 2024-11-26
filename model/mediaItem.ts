@@ -8,10 +8,10 @@ export type MediaItem = {
     size: number;
     tags: string[];
     mediaData: Uint8Array;
-}
+};
 
 export const MEDIA_TYPE = {
-    IMAGE: 'IMAGE',
-    VIDEO: 'VIDEO',
+    IMAGE: "IMAGE",
+    VIDEO: "VIDEO",
 } as const;
-export type MEDIA_TYPE = typeof MEDIA_TYPE[keyof typeof MEDIA_TYPE];
+export type MEDIA_TYPE = (typeof MEDIA_TYPE)[keyof typeof MEDIA_TYPE];

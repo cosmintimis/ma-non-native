@@ -1,9 +1,9 @@
-import { Alert, Platform } from 'react-native'
+import { Alert, Platform } from "react-native";
 
 type AlertOption = {
     text: string;
     onPress: () => void;
-    style?: 'default' | 'cancel' | 'destructive';
+    style?: "default" | "cancel" | "destructive";
 };
 
 const alertPolyfill = (
@@ -12,18 +12,20 @@ const alertPolyfill = (
     options: AlertOption[],
     extra?: any
 ): void => {
-    const result = window.confirm([title, description].filter(Boolean).join('\n'));
+    const result = window.confirm(
+        [title, description].filter(Boolean).join("\n")
+    );
 
     if (result) {
-        const confirmOption = options.find(({ style }) => style !== 'cancel');
+        const confirmOption = options.find(({ style }) => style !== "cancel");
         confirmOption?.onPress();
     } else {
-        const cancelOption = options.find(({ style }) => style === 'cancel');
+        const cancelOption = options.find(({ style }) => style === "cancel");
         cancelOption?.onPress();
     }
 };
 
 // Determine which alert method to use based on the platform
-const alert = Platform.OS === 'web' ? alertPolyfill : Alert.alert;
+const alert = Platform.OS === "web" ? alertPolyfill : Alert.alert;
 
-export default alert
+export default alert;
