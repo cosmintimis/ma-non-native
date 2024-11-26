@@ -77,30 +77,50 @@ export default function UpdateMediaItemView() {
                 </Text>
             </View>
 
-            <TextInput
-                value={title}
-                onChangeText={setTitle}
-                placeholder="Title"
-                className="border border-gray-300 rounded p-3 text-base"
-            />
-            <TextInput
-                value={description}
-                onChangeText={setDescription}
-                placeholder="Description"
-                className="border border-gray-300 rounded p-3 text-base"
-            />
-            <TextInput
-                value={location}
-                onChangeText={setLocation}
-                placeholder="Location"
-                className="border border-gray-300 rounded p-3 text-base"
-            />
-            <TextInput
-                value={tags}
-                onChangeText={setTags}
-                placeholder="Tags (use comma to separate)"
-                className="border border-gray-300 rounded p-3 text-base"
-            />
+            <View>
+                <Text className="text-sm font-medium text-gray-700 mb-2">
+                    Title
+                </Text>
+                <TextInput
+                    value={title}
+                    onChangeText={setTitle}
+                    placeholder="Title"
+                    className="border border-gray-300 rounded p-3 text-base"
+                />
+            </View>
+            <View>
+                <Text className="text-sm font-medium text-gray-700 mb-2">
+                    Description
+                </Text>
+                <TextInput
+                    value={description}
+                    onChangeText={setDescription}
+                    placeholder="Description"
+                    className="border border-gray-300 rounded p-3 text-base"
+                />
+            </View>
+            <View>
+                <Text className="text-sm font-medium text-gray-700 mb-2">
+                    Location
+                </Text>
+                <TextInput
+                    value={location}
+                    onChangeText={setLocation}
+                    placeholder="Location"
+                    className="border border-gray-300 rounded p-3 text-base"
+                />
+            </View>
+            <View>
+                <Text className="text-sm font-medium text-gray-700 mb-2">
+                    Tags (keep them separated by commas)
+                </Text>
+                <TextInput
+                    value={tags}
+                    onChangeText={setTags}
+                    placeholder="Tags (use comma to separate)"
+                    className="border border-gray-300 rounded p-3 text-base"
+                />
+            </View>
 
             <View className="flex-row justify-end mt-4">
                 <TouchableOpacity
