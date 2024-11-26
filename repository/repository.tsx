@@ -12,25 +12,25 @@ async function loadInitMediaItems(): Promise<MediaItem[]> {
   const mediaItems: MediaItem[] = [
     {
       id: uuid.v4(),
-      title: "Title1",
-      description: "Description1",
+      title: "Cat1",
+      description: "description 1",
       location: "Borsa Maramures",
       type: MEDIA_TYPE.IMAGE,
       mimeType: "image/jpeg",
       size: mediaData1.length,
       mediaData: mediaData1,
-      tags: ["tag1", "tag2"],
+      tags: ["grey", "majestic"],
     },
     {
       id: uuid.v4(),
-      title: "Title2",
-      description: "Description2",
+      title: "Cat2",
+      description: "description 2",
       location: "Cluj-Napoca Cluj",
       type: MEDIA_TYPE.IMAGE,
       mimeType: "image/jpeg",
       size: mediaData2.length,
       mediaData: mediaData2,
-      tags: ["tag3", "tag4"],
+      tags: ["orange", "grey"],
     },
   ];
   return mediaItems;
@@ -41,6 +41,8 @@ type MediaItemContextType = {
   setMediaItems: React.Dispatch<React.SetStateAction<MediaItem[]>>;
   handleSearch: (searchTerm: string) => void;
   deleteMediaItem: (id: string) => void;
+  getMediaItemById: (id: string) => MediaItem | undefined;
+  updateMediaItem: (mediaItem: MediaItem) => void;
 };
 
 export const MediaItemContext = createContext<MediaItemContextType>({
@@ -48,6 +50,8 @@ export const MediaItemContext = createContext<MediaItemContextType>({
   setMediaItems: () => {},
   handleSearch: () => {},
   deleteMediaItem: () => {},
+  getMediaItemById: () => undefined,
+  updateMediaItem: () => {},
 });
 
 export const MediaItemsProvider = ({ children }: any) => {
@@ -84,9 +88,21 @@ export const MediaItemsProvider = ({ children }: any) => {
     handleSearch(lastSearchTerm.current);
   };
 
+  const getMediaItemById = (id: string) => {
+    return allMediaItems.current.find((mediaItem) => mediaItem.id === id);
+  };
+
+  const updateMediaItem = (mediaItem: MediaItem) => {
+    const newMediaItems = (allMediaItems.current).map((item) =>
+      item.id === mediaItem.id ? mediaItem : item
+    );
+    allMediaItems.current = newMediaItems;
+    handleSearch(lastSearchTerm.current);
+  };
+
   return (
     <MediaItemContext.Provider
-      value={{ mediaItems, setMediaItems, handleSearch, deleteMediaItem }}
+      value={{ mediaItems, setMediaItems, handleSearch, deleteMediaItem, getMediaItemById, updateMediaItem }}
     >
       {children}
     </MediaItemContext.Provider>

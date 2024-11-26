@@ -3,11 +3,17 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useMediaItemsStore } from "@/repository/repository";
 import { Buffer } from "buffer";
 import alert from "@/utils/alertPolyfill";
+import { useNavigation } from "expo-router";
 
 export const MediaItemCard = ({ mediaItem }: { mediaItem: MediaItem }) => {
   const { deleteMediaItem } = useMediaItemsStore();
+  const navigation = useNavigation<any>();
 
-  const handleUpdate = () => {};
+  const handleUpdate = () => {
+    navigation.navigate("updateMediaItemView/[mediaItemId]", {
+      mediaItemId: mediaItem.id,
+    });
+  };
 
   const handleDelete = () => {
     alert(
@@ -23,7 +29,11 @@ export const MediaItemCard = ({ mediaItem }: { mediaItem: MediaItem }) => {
           text: "Delete",
           onPress: () => {
             console.log(`Deleting media with ID: ${mediaItem.id}`);
-            deleteMediaItem(mediaItem.id);
+            try{
+              deleteMediaItem(mediaItem.id);
+            }catch(e){
+              console.error(e);
+            }
           },
         },
       ]
@@ -68,9 +78,9 @@ export const MediaItemCard = ({ mediaItem }: { mediaItem: MediaItem }) => {
         ))}
       </View>
       <View className="flex flex-row justify-between items-center">
-        <Text className="text-sm italic">📍 {mediaItem.location}</Text>
+        <Text className="text-sm italic truncate max-w-[60%] flex-shrink">📍 {mediaItem.location}</Text>
 
-        <View className="flex-row !gap-4">
+        <View className="flex flex-row !gap-4">
           <TouchableOpacity
             onPress={handleUpdate}
             className="bg-black py-2 px-4 rounded-md shadow-md"
