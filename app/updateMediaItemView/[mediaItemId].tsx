@@ -52,9 +52,10 @@ export default function UpdateMediaItemView() {
             try {
                 setDisableButton(true);
                 updateMediaItem(prepareData);
-                navigation.goBack();
             } catch (e) {
                 console.error(e);
+            } finally {
+                navigation.goBack();
             }
         }
     };

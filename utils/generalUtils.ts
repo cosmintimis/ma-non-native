@@ -37,3 +37,15 @@ export async function loadStoredImage(
 
     return loadImageAsUint8Array(asset.localUri!);
 }
+
+export const convertUriToByteArray = async (uri: string): Promise<Uint8Array | undefined> => {
+  try {
+    const response = await fetch(uri);
+    const arrayBuffer = await response.arrayBuffer(); 
+    const byteArray = new Uint8Array(arrayBuffer); 
+    return byteArray; 
+  } catch (error) {
+    console.error('Error converting URI to byte array', error);
+    return undefined; 
+  }
+};

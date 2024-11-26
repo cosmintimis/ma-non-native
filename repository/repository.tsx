@@ -23,28 +23,6 @@ async function loadInitMediaItems(): Promise<MediaItem[]> {
         },
         {
             id: uuid.v4(),
-            title: "Cat1",
-            description: "description 1",
-            location: "Borsa Maramures",
-            type: MEDIA_TYPE.IMAGE,
-            mimeType: "image/jpeg",
-            size: mediaData1.length,
-            mediaData: mediaData1,
-            tags: ["grey", "majestic"],
-        },
-        {
-            id: uuid.v4(),
-            title: "Cat1",
-            description: "description 1",
-            location: "Borsa Maramures",
-            type: MEDIA_TYPE.IMAGE,
-            mimeType: "image/jpeg",
-            size: mediaData1.length,
-            mediaData: mediaData1,
-            tags: ["grey", "majestic"],
-        },
-        {
-            id: uuid.v4(),
             title: "Cat2",
             description: "description 2",
             location: "Cluj-Napoca Cluj",
@@ -65,6 +43,7 @@ type MediaItemContextType = {
     deleteMediaItem: (id: string) => void;
     getMediaItemById: (id: string) => MediaItem | undefined;
     updateMediaItem: (mediaItem: MediaItem) => void;
+    addMediaItem: (mediaItem: MediaItem) => void;
 };
 
 export const MediaItemContext = createContext<MediaItemContextType>({
@@ -74,6 +53,7 @@ export const MediaItemContext = createContext<MediaItemContextType>({
     deleteMediaItem: () => {},
     getMediaItemById: () => undefined,
     updateMediaItem: () => {},
+    addMediaItem: () => {},
 });
 
 export const MediaItemsProvider = ({ children }: any) => {
@@ -124,6 +104,12 @@ export const MediaItemsProvider = ({ children }: any) => {
         handleSearch(lastSearchTerm.current);
     };
 
+    const addMediaItem = (mediaItem: MediaItem) => {
+        const newMediaItems = [...allMediaItems.current, mediaItem];
+        allMediaItems.current = newMediaItems;
+        handleSearch(lastSearchTerm.current);
+    };
+
     return (
         <MediaItemContext.Provider
             value={{
@@ -133,6 +119,7 @@ export const MediaItemsProvider = ({ children }: any) => {
                 deleteMediaItem,
                 getMediaItemById,
                 updateMediaItem,
+                addMediaItem,
             }}
         >
             {children}
